@@ -1,11 +1,12 @@
 use crate::{
   console::Console,
   drivers::video::vga::{
-    BUFFER_HEIGHT, BUFFER_WIDTH,
+    BUFFER_HEIGHT, BUFFER_WIDTH, VGA_TEXT_BUFFER_ADDRESS,
     buffer::{Buffer, Cell},
     colors::{Color, ColorCode},
   },
 };
+
 use core::fmt;
 use lazy_static::lazy_static;
 use spin::Mutex;
@@ -39,6 +40,14 @@ impl Writer {
   }
 }
 
+lazy_static! {
+  pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
+    column: 0,
+    color: ColorCode::new(Color::Yellow, Color::Black),
+    buffer: unsafe { &mut *(VGA_TEXT_BUFFER_ADDRESS as *mut Buffer) },
+  });
+}
+
 impl Console for Writer {
   fn write_byte(&mut self, byte: u8) {
     match byte {
@@ -69,10 +78,24 @@ impl fmt::Write for Writer {
   }
 }
 
-lazy_static! {
-  pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
-    column: 0,
-    color: ColorCode::new(Color::Yellow, Color::Black),
-    buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
-  });
+#[test_case]
+fn test_println_simple() {
+  crate::println!("test_println_simple output");
+}
+
+#[test_case]
+fn test_println_many() {
+  for _ in 0..200 {
+    crate::println!("test_println_many output");
+  }
+}
+
+#[test_case]
+fn test_println_output() {
+  let s = "Some test string that fits on a single line";
+  crate::println!("{}", s);
+  for (i, c) in s.chars().enumerate() {
+    let char = WRITER.lock().buffer.cells[BUFFER_HEIGHT - 2][i].read();
+    assert_eq!(char::from(char.ascii), c);
+  }
 }
