@@ -3,11 +3,9 @@
 #![feature(custom_test_frameworks)]
 #![test_runner(natural::test_runner)]
 #![reexport_test_harness_main = "test_main"]
-use core::panic::PanicInfo;
 
-mod console;
-mod drivers;
-mod serial;
+use core::panic::PanicInfo;
+use natural::println;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
