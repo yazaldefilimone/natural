@@ -13,18 +13,12 @@ pub extern "C" fn _start() -> ! {
 
   natural::init();
 
-  // fn stack_overflow() {
-  //   stack_overflow(); // para cada recursão, o endereço de retorno é empurrado
-  // }
-
-  // // dispara um stack overflow
-  // stack_overflow();
-
   #[cfg(test)]
   test_main();
 
   println!("It's don't crash!");
-  loop {}
+
+  natural::arch::hlt_loop();
 }
 
 #[cfg(not(test))]

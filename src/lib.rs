@@ -28,4 +28,6 @@ fn panic(info: &core::panic::PanicInfo) -> ! {
 pub fn init() {
   arch::x86_64::gdt::init();
   arch::x86_64::idt::init();
+  arch::x86_64::interrupts::pic::init();
+  x86_64::instructions::interrupts::enable();
 }
