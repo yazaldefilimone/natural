@@ -1,6 +1,9 @@
 pub mod breakpoint;
 pub mod double_fault;
 pub mod page_fault;
+pub mod report;
+
+pub use report::{Kind, Report};
 
 use crate::arch::x86_64::gdt;
 use x86_64::structures::idt::InterruptDescriptorTable;
