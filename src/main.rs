@@ -9,11 +9,21 @@ use natural::println;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-  println!("Hello World{}", "!");
+  println!("Hello Natural!");
+
+  natural::init();
+
+  // fn stack_overflow() {
+  //   stack_overflow(); // para cada recursão, o endereço de retorno é empurrado
+  // }
+
+  // // dispara um stack overflow
+  // stack_overflow();
 
   #[cfg(test)]
   test_main();
 
+  println!("It's don't crash!");
   loop {}
 }
 

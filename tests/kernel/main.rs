@@ -6,11 +6,13 @@
 
 use core::panic::PanicInfo;
 
+mod arch;
 mod boot;
 mod drivers;
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
+  natural::init();
   test_main();
   loop {}
 }
