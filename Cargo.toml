@@ -43,6 +43,11 @@ name = "kernel_panic"
 path = "tests/kernel/panic.rs"
 harness = false
 
+[[test]]
+name = "stack_overflow"
+path = "tests/kernel/stack_overflow.rs"
+harness = false
+
 [profile.dev]
 
 [profile.release]
