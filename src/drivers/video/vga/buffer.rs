@@ -1,11 +1,11 @@
-use crate::drivers::video::vga::colors;
+use crate::drivers::video::vga::color;
 use volatile::Volatile;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 #[repr(C)]
 pub struct Cell {
   pub ascii: u8,
-  pub color: colors::ColorCode,
+  pub color: color::ColorCode,
 }
 
 #[repr(transparent)]

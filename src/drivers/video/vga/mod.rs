@@ -1,5 +1,5 @@
 pub mod buffer;
-pub mod colors;
+pub mod color;
 mod macros;
 mod writer;
 

@@ -3,7 +3,7 @@ use crate::{
   drivers::video::vga::{
     self,
     buffer::{Buffer, Cell},
-    colors::{Color, ColorCode},
+    color::{Color, ColorCode},
   },
 };
 
@@ -19,11 +19,7 @@ pub struct Writer {
 
 impl Writer {
   pub fn new(color: ColorCode, buffer: &'static mut Buffer) -> Self {
-    Writer {
-      column: 0,
-      color,
-      buffer,
-    }
+    Writer { column: 0, color, buffer }
   }
 
   pub fn write_byte(&mut self, byte: u8) {
@@ -37,10 +33,7 @@ impl Writer {
         let row = vga::BUFFER_HEIGHT - 1;
         let column = self.column;
 
-        let cell = Cell {
-          ascii: byte,
-          color: self.color,
-        };
+        let cell = Cell { ascii: byte, color: self.color };
         self.buffer.cells[row][column].write(cell);
         self.column += 1;
       },
@@ -79,10 +72,7 @@ impl Writer {
   }
 
   fn clear_row(&mut self, row: usize) {
-    let blank = Cell {
-      ascii: b' ',
-      color: self.color,
-    };
+    let blank = Cell { ascii: b' ', color: self.color };
     for col in 0..vga::BUFFER_WIDTH {
       self.buffer.cells[row][col].write(blank);
     }

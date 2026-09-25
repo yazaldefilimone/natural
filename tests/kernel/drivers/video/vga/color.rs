@@ -1,5 +1,5 @@
 use natural::drivers::video::vga::WRITER;
-use natural::drivers::video::vga::colors::{Color, ColorCode};
+use natural::drivers::video::vga::color::{Color, ColorCode};
 
 #[test_case]
 fn keeps_color() {
