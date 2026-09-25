@@ -10,7 +10,7 @@ pub extern "C" fn _start() -> ! {
   should_fail();
   serial_println!("[test did not panic]");
   qemu::exit(ExitCode::Failed);
-  loop {}
+  natural::arch::hlt_loop();
 }
 
 fn should_fail() {
@@ -22,5 +22,5 @@ fn should_fail() {
 fn panic(_info: &PanicInfo) -> ! {
   serial_println!("[ok]");
   qemu::exit(ExitCode::Success);
-  loop {}
+  natural::arch::hlt_loop();
 }

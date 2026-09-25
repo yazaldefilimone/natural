@@ -14,7 +14,7 @@ mod drivers;
 pub extern "C" fn _start() -> ! {
   natural::init();
   test_main();
-  loop {}
+  natural::arch::hlt_loop();
 }
 
 #[panic_handler]

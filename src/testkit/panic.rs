@@ -6,5 +6,5 @@ pub fn panic(info: &PanicInfo) -> ! {
 
   super::qemu::exit(super::qemu::ExitCode::Failed);
 
-  loop {}
+  crate::arch::hlt_loop();
 }
